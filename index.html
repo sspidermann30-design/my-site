@@ -3,83 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой Рандомайзер</title>
+    <title>Ultimate Randomizer | 100+ Идей</title>
     <style>
         body { 
-            background-color: #121212; 
-            color: white; 
-            font-family: Arial, sans-serif; 
+            background-color: #0d0d0d; 
+            color: #ffffff; 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
+            min-height: 100vh; 
             margin: 0; 
+            padding: 20px;
         }
+
         .card { 
-            background: #1e1e1e; 
-            padding: 30px; 
+            background: #161616; 
+            padding: 25px; 
             border-radius: 20px; 
             text-align: center; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-            border: 1px solid #333;
+            max-width: 400px; 
+            width: 90%;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.8);
+            border: 1px solid #252525;
+            margin-top: 50px;
+            transition: 0.3s;
         }
+
+        .card img { 
+            width: 100%; 
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 12px; 
+            background: #000;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         button { 
-            background: #ff4d4d; 
-            color: white; 
             border: none; 
-            padding: 15px 40px; 
-            font-size: 20px; 
-            border-radius: 50px; 
+            padding: 15px 25px; 
+            font-size: 14px; 
+            border-radius: 10px; 
             cursor: pointer; 
-            margin-top: 30px;
             font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.2s;
+            color: white;
         }
-        button:hover { background: #ff1a1a; }
+
+        .btn-movie { background: #e50914; }
+        .btn-book { background: #007bff; }
+        button:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        h1 { font-size: 20px; margin: 15px 0 5px 0; }
+        p { color: #888; font-size: 14px; }
+
+        /* Рекламный блок */
+        .ad-container {
+            margin-top: auto;
+            padding: 20px;
+            width: 100%;
+            max-width: 728px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
     </style>
 </head>
 <body>
+
     <div class="card" id="display">
-        <h1>Нажми на кнопку</h1>
-        <p>Узнай, что посмотреть сегодня!</p>
+        <img src="https://img.icons8.com/clouds/200/000000/clapperboard.png" alt="icon">
+        <h1>Чем займемся?</h1>
+        <p>Выбери категорию, чтобы получить случайную рекомендацию из золотой коллекции.</p>
     </div>
-    <button onclick="getRandom()">Кнопка удачи</button>
+
+    <div class="button-group">
+        <button class="btn-movie" onclick="getRandom('movie')">Случайное Кино</button>
+        <button class="btn-book" onclick="getRandom('book')">Случайная Книга</button>
+    </div>
+
+    <div class="ad-container">
+        <div style="background: #1a1a1a; padding: 10px; border-radius: 5px; color: #444; font-size: 10px; border: 1px dashed #333;">
+            РЕКЛАМА (Место для вашего баннера AdSense/РСЯ)
+        </div>
+    </div>
 
     <script>
-        const items = [
-            {
-                title: "Человек-паук: Через вселенные",
-                img: "https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_.jpg",
-                link: "https://www.kinopoisk.ru/film/920293/" // Сюда потом вставишь партнерку
-            },
-            {
-                title: "Гарри Поттер и Философский камень",
-                img: "https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWVhLTkYTVgtY2VlMjA0OTQ5NTU5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
-                link: "https://www.kinopoisk.ru/film/689/"
-            },
-            {
-                title: "Шрек",
-                img: "https://m.media-amazon.com/images/M/MV5BOGZhM2FhNTItODAzNi00YjA0LWEyZTItYmJmZGNjNjkwYzE1XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_.jpg",
-                link: "https://www.kinopoisk.ru/film/430/"
-            }
-        ];
-
-        function getRandom() {
-            const item = items[Math.floor(Math.random() * items.length)];
-            const display = document.getElementById('display');
-            
-            display.innerHTML = `
-                <img src="${item.img}" style="width: 200px; border-radius: 10px; margin-bottom: 15px;">
-                <h1>${item.title}</h1>
-                <a href="${item.link}" target="_blank" style="color: #ff4d4d; text-decoration: none; font-weight: bold;">Смотреть онлайн</a>
-            `;
-        }
-        function getRandom() {
-            const random = items[Math.floor(Math.random() * items.length)];
-            document.getElementById('display').innerHTML = `<h1>${random}</h1><p>Отличный выбор!</p>`;
-        }
-    </script>
-</body>
-</html>
-
-
+        const database = {
+            movie: [
+                { title: "Король Лев", img: "https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_.jpg" },
+                { title: "Назад в будущее", img: "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" },
+                { title: "Шрек", img: "https://m.media-amazon.com/images/M/MV5BOGZhM2FhNTItODAzNi00YjA0LWEyZTItYmJmZGNjNjkwYzE1XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_.jpg" },
+                { title: "Человек-паук: Через вселенные", img: "https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_.jpg" },
+                { title: "История игрушек", img: "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2MTMzODA@._V1_.jpg" },
+                { title: "Унесённые призраками", img: "https://m.media-amazon.com/images/M/MV5BMjlmZmI5MDctTI2TS00NjRmLTlhMTUtOTVjNjAxZGUzODcxXkEyXkFqcGdeQXVyNTgzMDMzMTg@._V1_.jpg" },
+                { title: "ВАЛЛ-И", img: "https://m.media-amazon.com/images/M/MV5BMjExMTg5OTU0NF5BMl5BanBnXkFtZTcwMjMxMzMzMw@@._V1_.jpg" },
+                { title: "Вверх", img: "https://m.media-amazon.com/images/M/MV5BMTk3NDE2NzI4NF5BMl5BanBnXkFtZTgwNzE1MzEyMTE@._V1_.jpg" },
+                { title: "Корпорация монстров", img: "https://m.media-amazon.com/images/M/MV5BMTY1MTQ5NDMzNl5BMl5BanBnXkFtZTcwOTU4MDYyMQ@@._V1_.jpg" },
+                { title: "Гарри Поттер (все части)", img: "https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWVhLTkYTVgtY2VlMjA0OTQ5NTU5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" },
+                { title: "Звёздные войны", img: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00NWVjLXYyOTEtNjgzZjFkMzBmZGExXkEyXkFqcGdeQXVyMTgzOTIzMmE0._V1_.jpg" },
+                { title: "Властелин колец", img: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg" },
+                { title: "Один дома", img: "https://m.media-amazon.com/images/M/MV5BMzFkM2YwOTQtYzk2Mi00N2VmLTg3ZjItZmMwNzkxN2Y3MzAxXkEyXkFqcGdeQXVyNjUxMjc1OTM@._V1_.jpg" },
+                { title: "Матрица", img: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" },
+                { title: "Парк Юрского периода", img: "https://m.media-amazon.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_.jpg" },
+                { title: "Интерстеллар", img: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" },
+                { title: "Тёмный рыцарь", img: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" },
+                { title: "Пираты Карибского моря", img: "https://m.media-amazon.com/images/M/MV5BMjE5MjkwODI3Nl5BMl5BanBnXkFtZTcwNjcwMDkzNw@@._V1_.jpg" },
+                { title: "Рататуй", img: "https://m.media-amazon.com/images/M/MV5BMTY1MTU4NzE5NV5BMl5BanBnXkFtZTcwMzU1OTMzMw@@._V1_.jpg" },
+                { title: "Как приручить дракона", img: "https://m.media-amazon.com/images/M/MV5BMjA5NDQyMjc2NF5BMl5BanBnXkFtZTcwMjg5ODcyMw@@._V1_.jpg" },
+                { title: "Мстители", img: "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNjQxLS00ZTU5LThhOWQtNjdmYzhhNjM4ZDUxXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" },
+                { title: "Зверополис", img: "https://m.media-amazon.com/images/M/MV5BOTMyMjEyNzIzMV5BMl5BanBnXkFtZTgwNzMzNjgzNzE@._V1_.jpg" },
+                { title: "Холодное сердце", img: "https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_.jpg" },
+                { title: "Гринч", img: "https://m.media-amazon.com/images/M/MV5BYmE5Yjg0MzktYzgzMi00YTFiLWEwY2ItOTM3YjllYWU4Y2M3XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" },
+                { title: "Аватар", img: "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODUtY2UxYS00N2U4LTliIWQtMmE1OTI1YWJmZDRmXkEyXkFqcGdeQXVyMjQwMjk0NjI@._V1_.jpg" },
+                { title: "Коко", img: "https://m.media-amazon.com/images/M/MV5BYjQ5NjM0OTgtOTUxYi00YWQ5LWIwYjMtMWRmZWQzZDgzMmU5XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" },
+                { title: "Моана", img: "https://m.media-amazon.com/images/M/MV5BMjI4MzU5NTExNF5BMl5BanBnXkFtZTgwNzY1MTEwMDI@._V1_.jpg" },
+                { title: "Красавица и чудовище", img: "https://m.media-amazon.com/images/M/MV5BMzE5MDM1NDktNWVhNi00NGJjLWJlOTUtNzkxZDA3MTdkMDU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg" },
+                { title: "Аладдин", img: "https://m.media-amazon.com/images/M/MV5BY2Q2YzAyZDUtNWJlOC00YWMxLWJjNmUtYWExYzMyMTRjNjhuXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" },
+                { title: "Русалочка", img: "https://m.media-amazon.com/images/M/MV5BNmU5YzQ5MjEtYjg0Yy00ZjY1LWFhY2ItMjljY2RhYmZlZTM4XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" },
+                { title: "Геркулес", img: "https://m.media-amazon.com/images/M/MV5BMzU4MDRjOWUtNjc0My00MGUzLTlmOTItN2FiNDJjMDU3YTNlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" },
+                { title: "Мулан", img: "https://m.media-amazon.com/images/M/MV5BMTY4OTAxMDA0OF5BMl5BanBnXkFtZTcwOTg3OTYyMQ@@._V1_.jpg" },
+                { title: "Рапунцель", img: "https://m.media-amazon.com/images/M/MV5BMTAxNDYxMjg0MjleQTJeQWpwZ15BbWU3MDcyNTk2OTM@._V1_.jpg" },
+                { title: "Мегамозг", img: "https://m.media-amazon.com/images/M/MV5BMTA2NDYxOGYtYjU1Mi00Y2QzLWIxMDUtZGExYzA4ZDVkNzE2XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" },
+                { title: "Кунг-фу Панда", img: "https://m.media-amazon.com/images/M/MV5BMTIxOTYxNzEwOF5BMl5BanBnXkFtZTYwMDUxMDI3._V1_.jpg" },
+                { title: "Мадагаскар", img: "https://m.media-amazon.com/images/M/MV5BMjEA4MzY5NjQxOV5BMl5BanBnXkFtZTcwOTKwNTgyMQ@@._V1_.jpg" },
+                { title: "Ледниковый период", img: "https://m.media-amazon.com/images/M/MV5BMjEyNzI1NzYzN15BMl5BanBnXkFtZTYwODIxODY3._V1_.jpg" },
+                { title: "Миньоны", img: "https://m.media-amazon.com/images/M/MV5BMTg2MTMyMzU0M15BMl5BanBnXkFtZTgwOTU3ODk4NTE@._V1_.jpg" },
+                { title: "Гадкий я", img: "https://m.media-amazon.com/images/M/MV5BMTY3NjY0MTQ0Nl5BMl5BanBnXkFtZTcwMzY2MTYzMw@@._V1_.jpg" },
+                { title: "Головоломка", img: "https://m.media-amazon.com/images/M/MV5BOTgxMDQwMDk0OF5BMl5BanBnXkFtZTgwNjU5OTg2NDE@._V1_.jpg" },
+                { title: "Зверопой", img: "https://m.media-amazon.com/images/M/MV5BMTYzODYzNjU2Nl5BMl5BanBnXkFtZTgwNTc1MTA2OTE@._V1_.jpg" },
+                { title: "Кот в сапогах", img: "https://m.media-amazon.com/images/M/MV5BOGJjNzZlMjctN2I0OC00YmU0LThhNjAtMWNhYjY2MzI0ZDU0XkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg" },
+                { title: "Балто", img: "https://m.media-amazon.com/images/M/MV5BMjA0Nzg2NDE5Nl5BMl5BanBnXkFtZTcwMzY5OTUzMQ@@._V1_.jpg" },
+                { title: "Стальной гигант", img: "https://m.media-amazon.com/images/M/MV5BYzZlNDVkM2MtYmY2Yy00ZDYyLWI0NTgtZGU2ZTkyMGY4N2E3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" },
+                { title: "Скуби-Ду", img: "https://m.media-amazon.com/images/M/MV5BNDUyYTM4MDEtZTRhYy00YzVmLThmN2EtNjg5YzAyN2RjYTgwXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_.jpg" },
+                { title: "Спирит", img: "https://m.media-amazon.com/images/M/MV5BMTczMjYwNzY1NV5BMl5BanBnXkFtZTYwMDQ5ODk3._V1_.jpg" },
+                { title: "Принц Египта", img: "https://m.media-amazon.com/images/M/MV5BMzZiNjZjYmUtYzYxZi00YmU0LTg0N2ItYmE5N2FmNjc3MGRmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" },
+                { title: "Труп невесты", img: "https://m.media-amazon.com/images/M/MV5BMTU1MTY5Mzg5NF5BMl5BanBnXkFtZTcwOTkzNjIyMw@@._V1_.jpg" },
+                { title: "Коралина", img: "https://m.media-amazon.com/images/M/MV5BMzgwODk3ODA1NF5BMl5BanBnXkFtZTcwNjU3OTc0Mg@@._V1_.jpg" },
+                { title: "Круэлла", img: "https://m.media-amazon.com/images/M/MV5BMjE0NWRlODEtMTI3OC00N2I4LWE0Y2ItMTg0OTNhYWEzYjFmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" }
+            ],
+            book: [
+                { title: "Гарри Поттер", img: "https://m.media-amazon.com/images/I/81YOuOG6nFL.jpg" },
+                { title: "Хоббит", img: "https://m.media-amazon.com/images/I/710+HcoP38L.jpg" },
+                { title: "Маленький принц", img: "https://m.media-amazon.com/images/I/71OAt8LZn5L.jpg" },
+                { title: "Властелин колец", img: "https://m.media-amazon.com/images/I/71jKe7uX6DL.jpg" },
+                { title: "Хроники Нарнии", img: "https://m.media-amazon.com/images/I/81-f2rB5N-L.jpg" },
+                { title: "Алиса в Стране чудес", img: "https://m.media-amazon.com/images/I/91pG6t6WfIL.jpg" },
+                { title: "1984", img: "https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg" },
+                { title: "Вино из одуванчиков", img: "https://m.media-amazon.com/images/I/81uN-pByG-L.jpg" },
+                { title: "Великий Гэтсби", img: "https://m.media-amazon.com/images/I/71m6NlH5A9L.jpg" },
+                { title: "Убить пересмешника", img: "https://m.media-amazon.com/images/I/81gepf1eMqL.jpg" },
+                { title: "Мастер и Маргарита", img: "https://m.media-amazon.com/images/I/91pB6KjW7TL.jpg" },
+                { title: "Шерлок Холмс", img: "https://m.media-amazon.com/images/I/71K9p12V9FL.jpg" },
+                { title: "Три товарища", img: "https://m.media-amazon.com/images/I/81h89hA5v2L.jpg" },
+                { title: "Дюна", img: "https://m.media-amazon.com/images/I/81Eqm-y+M2L.jpg" },
+                { title: "Марсианин", img: "https://m.media-amazon.com/images/I/819mSt6S72L.jpg" },
+                { title: "Ведьмак", img: "https://m.media-amazon.com/images/I/81H+M0K5+sL.jpg" },
+                { title: "Остров сокровищ", img: "https://m.media-amazon.com/images/I/81vRSTv+KDL.jpg" },
+                { title: "Граф Монте-Кристо", img: "https://m.media-amazon.com/images/I/81-yS9V+pKL.jpg" },
+                { title: "Три мушкетера", img: "https://m.media-amazon.com/images/I/91r4uG+oDmL.jpg" },
+                { title: "Приключения Тома Сойера", img: "https://m.media-amazon.com/images/I/81qEa0+VSDL.jpg" },
+                { title: "Вокруг света за 80 дней", img: "https://m.media-amazon.com/images/I/81-0Tf3O4cL.jpg" },
+                { title: "Человек-амфибия", img: "
