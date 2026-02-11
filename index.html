@@ -46,7 +46,34 @@
     <button onclick="getRandom()">Кнопка удачи</button>
 
     <script>
-        const items = ["Человек-паук", "Гарри Поттер", "Интерстеллар", "Дюна", "Шрек"];
+        const items = [
+            {
+                title: "Человек-паук: Через вселенные",
+                img: "https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_.jpg",
+                link: "https://www.kinopoisk.ru/film/920293/" // Сюда потом вставишь партнерку
+            },
+            {
+                title: "Гарри Поттер и Философский камень",
+                img: "https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWVhLTkYTVgtY2VlMjA0OTQ5NTU5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
+                link: "https://www.kinopoisk.ru/film/689/"
+            },
+            {
+                title: "Шрек",
+                img: "https://m.media-amazon.com/images/M/MV5BOGZhM2FhNTItODAzNi00YjA0LWEyZTItYmJmZGNjNjkwYzE1XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_.jpg",
+                link: "https://www.kinopoisk.ru/film/430/"
+            }
+        ];
+
+        function getRandom() {
+            const item = items[Math.floor(Math.random() * items.length)];
+            const display = document.getElementById('display');
+            
+            display.innerHTML = `
+                <img src="${item.img}" style="width: 200px; border-radius: 10px; margin-bottom: 15px;">
+                <h1>${item.title}</h1>
+                <a href="${item.link}" target="_blank" style="color: #ff4d4d; text-decoration: none; font-weight: bold;">Смотреть онлайн</a>
+            `;
+        }
         function getRandom() {
             const random = items[Math.floor(Math.random() * items.length)];
             document.getElementById('display').innerHTML = `<h1>${random}</h1><p>Отличный выбор!</p>`;
@@ -54,4 +81,5 @@
     </script>
 </body>
 </html>
+
 
